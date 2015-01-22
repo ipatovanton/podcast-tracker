@@ -1,0 +1,43 @@
+require 'json'
+
+class PodcastDownload < Sinatra::Base
+  register Sinatra::Async
+
+  SITE_HOST = 'podcast.steer.me'
+  DOWNLOAD_HOST = 'podcast-dl.steer.me'
+  GA_ID= ENV['GA_ID']
+
+  aget '/' do
+    redirect "#{request.scheme}://#{SITE_HOST}/"
+  end
+
+  aget '/episode.:format' do
+
+    # Get params
+    url, slug = params[:url], params[:slug]
+    error('Bad Request') and return unless url && slug
+
+    # Send to Google Analytics
+    Gabba::Gabba.new(GA_ID, SITE_HOST).event("Episodes", "Download", "Episode: #{slug}", nil, true)
+
+    # Redirect to the URL
+    redirect url
+  end
+
+  aget '/ping' do
+    content_type 'text/plain'
+    ahalt 200, 'Pong!'
+  end
+
+  aget '*' do
+    error('Not Found', 404)
+  end
+
+  private
+
+  def error(message, status=400)
+    content_type 'text/plain'
+    ahalt status, message
+  end
+
+end

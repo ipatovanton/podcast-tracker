@@ -1,0 +1,5 @@
+# Development secrets
+.env
+.rbenv-gemsets
+/bundle
+/tmp
