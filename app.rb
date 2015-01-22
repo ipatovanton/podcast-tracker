@@ -13,11 +13,11 @@ class PodcastDownload < Sinatra::Base
   aget '/episode.:format' do
 
     # Get params
-    url, slug = params[:url], params[:slug]
-    error('Bad Request') and return unless url && slug
+    url, title = params[:url], params[:title]
+    error('Bad Request') and return unless url && title
 
     # Send to Google Analytics
-    Gabba::Gabba.new(GA_ID, SITE_HOST).event("Episodes", "Server Download", "Episode: #{slug}", nil, true)
+    Gabba::Gabba.new(GA_ID, SITE_HOST).event("Episodes", "Server Download", "Episode: #{title}", nil, true)
 
     # Redirect to the URL
     redirect url
