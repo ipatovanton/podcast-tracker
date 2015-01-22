@@ -17,7 +17,7 @@ class PodcastDownload < Sinatra::Base
     error('Bad Request') and return unless url && slug
 
     # Send to Google Analytics
-    Gabba::Gabba.new(GA_ID, SITE_HOST).event("Episodes", "Download", "Episode: #{slug}", nil, true)
+    Gabba::Gabba.new(GA_ID, SITE_HOST).event("Episodes", "Server Download", "Episode: #{slug}", nil, true)
 
     # Redirect to the URL
     redirect url
