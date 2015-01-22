@@ -1,5 +1,5 @@
 desc "This task is called by the Heroku scheduler add-on"
-task :ping => :environment do
+task :ping do
   require 'net/http'
 
   if ENV['PING_URL']
