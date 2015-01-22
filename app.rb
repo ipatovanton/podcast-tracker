@@ -4,7 +4,6 @@ class PodcastDownload < Sinatra::Base
   register Sinatra::Async
 
   SITE_HOST = 'podcast.steer.me'
-  DOWNLOAD_HOST = 'podcast-dl.steer.me'
   GA_ID= ENV['GA_ID']
 
   aget '/' do
